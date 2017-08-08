@@ -1,0 +1,32 @@
+html{
+    font-family: Verdana, Arial, "Comic Sans";
+    color: #1a1a19;
+}
+
+body{
+    background-color: #9ec7dd;
+}
+
+figure img{
+    width: 200px;
+    height: 200px;
+    border-radius: 100%;
+    border: 5px solid #fff;
+}
+
+strong{
+    font-size: 1.2em;
+}
+
+;.polaroid{
+    background-color: #f0f0f0;
+    padding: 10px 10px 30px 10px;
+    width: 200px;
+    height: : 200px;
+    box-shadow: 0 0 20px rgba(64, 49, 49, 0.69);
+    transform: rotate(5deg);
+    -moz-transform: rotate(5deg);
+    -o-transform: rotate(5deg);
+    -ms-transform: rotate(5deg);
+    -webkit-transform: rotate(5deg);
+}
