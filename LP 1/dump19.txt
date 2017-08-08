@@ -1,0 +1,15 @@
+CLA	112	232	Alckmin	1200.0
+CLA	102	789	Ana Maria	1400.0
+CLA	122	111	Luana Lima	1600.0
+CLA	107	516	Ana Barbara	1900.0
+CLA	117	031	Luciana Genro	2800.0
+SLA	103	101	Ana Beatriz	1500.0
+SLA	123	010	Ian Oliveira	1500.0
+SLA	108	171	Beto Carreiro	2000.0
+SLA	113	425	Fernando Haddad	2400.0
+SLA	118	323	Jean Willis	2900.0
+FLA	124	789	Guilherme Alleoni	1400.0
+FLA	104	111	Ana Joaquina	1600.0
+FLA	109	819	Joao Bosco	2100.0
+FLA	114	262	Jose Serra	2500.0
+FLA	119	334	Eduardo George	3000.0

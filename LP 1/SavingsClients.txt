@@ -1,0 +1,21 @@
+100#123#Ana Cristina#1200#0.2
+101#456#Ana Carolina#1300#0.2
+102#789#Ana Maria#1400#0.2
+103#101#Ana Beatriz#1200#0.2
+104#111#Ana Joaquina#1200#0.2
+105#213#Ana Vitória#1200#0.2
+106#141#Ana Vanessa#1200#0.2
+107#516#Ana Barbara#1200#0.2
+108#171#Beto Carreiro#1200#0.2
+109#819#João Bosco#1200#0.2
+110#202#luíz Inácio Lula Da Silva#1200#0.2
+111#122#Dilma Vana Rousseff#1200#0.2
+112#232#Alckmin#1200#0.2
+113#425#Fernando Haddad#1200#0.2
+114#262#José Serra#1200#0.2
+115#728#Jair Bolsonaro#1200#0.2
+116#293#Marcos Feliciano#1200#0.2
+117#031#Luciana Genro#1200#0.2
+118#323#Jean Willis#1200#0.2
+119#334#Eduardo George#1200#0.2
+120#353#Levy Fidelix#1200#0.2

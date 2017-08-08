@@ -1,0 +1,20 @@
+21470200:Joao:joao@gmail.com:GRAD:80
+35480100:Laura:laura@hotmail.com:POS:Aquecimento Global:Ana Claudia Rossi
+37090000:Ricardo:rc@live.com:GRAD:32
+35480130:Luis:luis@hotmail.com:POS:Educação no sec XXI:Arnaldo R. de Aguiar Vallim Filho
+35408104:Leonardo:leonardo@hotmail.com:GRAD:40
+35048001:Caio:caio@hotmail.com:POS:Computação Aplicada:Beatriz de Almeida Pacheco
+31548000:Caique:caique@hotmail.com:GRAD:10
+31548001:Fernanda:fernanda@gmail.com:POS:Controles Internos:Alice Mayumi Kotani
+31548002:Barbara:barbara@hotmail.com:GRAD:8
+31548003:Daniela:daniela@hotmail.com:POS:Fluxo de caixa:Antonio Luiz Basile
+31548004:Valquiria:valquiria@hotmail.com:GRAD:45
+31548005:Beatriz:beatriz@hotmail.com:POS:Comércio Exterior:Ana Cristina A. P. de Carvalho
+31548006:Guilherme:guilherme@hotmail.com:GRAD:14
+31548007:Anna:anna@hotmail.com:POS:Planejamento Estratégico:Bruno Luis Soares de Lima
+31548008:Beto:beto@hotmail.com:GRAD:15
+31548009:Alice:alice@hotmail.com:POS:Qualidade de vida no trabalho:Eliza Hidemi Sadaike
+31548010:Gabriel:gabriel@hotmail.com:GRAD:110
+31548011:Paula:paula@hotmail.com:POS:Comportamento de compra do consumidor:Fabio Aparecido Gamarra Lubacheski
+31548012:Joaquim:joaquim@hotmail.com:GRAD:100
+31548013:Regina:regina@gmail.com:POS:A Tecnologia de Gestão das Empresas:Ilana de Almeida Souza
