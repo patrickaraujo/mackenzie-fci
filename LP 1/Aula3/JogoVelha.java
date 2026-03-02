@@ -8,124 +8,216 @@ package Aula3;
 import java.util.Scanner;
 
 /**
- *
  * @author Patrick
+ * Jogo da Velha (Tic-Tac-Toe)
+ * 
+ * Estrutura:
+ * - Tabuleiro 3x3 representado por matriz String[][]
+ * - "." representa posição vazia
+ * - "X" e "O" representam jogadas dos jogadores
  */
 public class JogoVelha {
-    
-    public static void initialize (String x[][]){
-        for(int i = 0; i < x[0].length; i++)
-            for(int j = 0; j < x.length; j++)
-                x[i][j] = ".";
-    }
-    
-    public static void print2DArray (String x[][]){
-        for(int i = 0; i < x[0].length; i++){
-            System.out.println();
-            for(int j = 0; j < x.length; j++)
-                System.out.print(x[i][j]+"\t");
-        }
-    }
-    
-    public static void tentativas (boolean j1, String[][] a){
-        String g1 = "";
-        String g2 = "";
-        if(j1){
-            g1 = "X";
-            g2 = "O";
-        }
-        else{
-            g1 = "O";
-            g2 = "X";
-        }
-        int i = 0;
-        Scanner entrada = new Scanner(System.in);
-        boolean lol = false;
-        do{
-            int lin = 4;
-            int col = 4;
-            boolean test = false;
-            String jogador = "";
-            if(i % 2 == 0)
-                jogador = g1;
-            else
-                jogador = g2;
-            
-            while(!test){
-                System.out.println(jogador+": qual posição?");
-                System.out.print("Linha: ");
-                lin = entrada.nextInt();
-                System.out.print("\nColuna: ");
-                col = entrada.nextInt();
-                if((lin < 3) && (col < 3))
-                    if(".".equals(a[lin][col]))
-                        test = true;
+
+    // Scanner único para todo o programa
+    public static Scanner entrada = new Scanner(System.in);
+
+    /* =========================================================
+       ================== INICIALIZAÇÃO ========================
+       ========================================================= */
+
+    /**
+     * Inicializa o tabuleiro preenchendo com "."
+     */
+    public static void inicializarTabuleiro(String[][] tabuleiro) {
+        for (int linha = 0; linha < 3; linha++) {
+            for (int coluna = 0; coluna < 3; coluna++) {
+                tabuleiro[linha][coluna] = ".";
             }
-            a[lin][col] = jogador;
-            print2DArray(a);
-            int y = check(a);
-            if (y == 1)
-                System.out.println("\"X\" venceu");
-            if (y == 2)
-                System.out.println("\"O\" venceu");
-            i++;
-            if((verificaCheio(a)) || (y > 0))
-                lol = false;
-            else
-                lol = true;
-        }while(lol);// até estar cheio
-        
+        }
     }
-    
-    public static boolean verificaCheio(String v[][]){
-        for(int i = 0; i < v[0].length; i++)
-            for(int j = 0; j < v.length; j++)
-                if(".".equals(v[i][j])){
-                    System.out.println("Deu velha");
+
+    /**
+     * Imprime o tabuleiro formatado
+     */
+    public static void imprimirTabuleiro(String[][] tabuleiro) {
+        System.out.println("\nTabuleiro:");
+        for (int linha = 0; linha < 3; linha++) {
+            for (int coluna = 0; coluna < 3; coluna++) {
+                System.out.print(tabuleiro[linha][coluna] + " ");
+            }
+            System.out.println();
+        }
+        System.out.println();
+    }
+
+    /* =========================================================
+       ================== LÓGICA DO JOGO =======================
+       ========================================================= */
+
+    /**
+     * Verifica se o tabuleiro está cheio
+     */
+    public static boolean tabuleiroCheio(String[][] tabuleiro) {
+        for (int linha = 0; linha < 3; linha++) {
+            for (int coluna = 0; coluna < 3; coluna++) {
+                if (".".equals(tabuleiro[linha][coluna])) {
                     return false;
                 }
-        return true;
-    }
-    
-    public static int check(String a[][]){
-        if((("X".equals(a[0][0])) && ("X".equals(a[1][1])) && ("X".equals(a[2][2]))))
-            return 1;
-        if((("O".equals(a[0][0])) && ("O".equals(a[1][1])) && ("O".equals(a[2][2]))))
-            return 2;
-        if((("X".equals(a[2][0])) && ("X".equals(a[1][1])) && ("X".equals(a[0][2]))))
-            return 1;
-        if((("O".equals(a[2][0])) && ("O".equals(a[1][1])) && ("O".equals(a[0][2]))))
-            return 2;
-        for(int coluna=0 ; coluna<3 ; coluna++){
-            if((("X".equals(a[0][coluna])) && ("X".equals(a[1][coluna])) && ("X".equals(a[2][coluna]))))
-                return 1;
-            if((("O".equals(a[0][coluna])) && ("O".equals(a[1][coluna])) && ("O".equals(a[2][coluna]))))
-                return 2;
-            if((("X".equals(a[coluna][0])) && ("X".equals(a[coluna][1])) && ("X".equals(a[coluna][2]))))
-                return 1;
-            if((("O".equals(a[coluna][0])) && ("O".equals(a[coluna][1])) && ("O".equals(a[coluna][2]))))
-                return 2;
-        }
-        return 0;       
-    }
-    
-    public static void main(String [] args) {
-        String a[][] = new String[3][3];
-        initialize(a);
-        print2DArray(a);
-        Scanner entrada = new Scanner(System.in);
-        String j1;
-        boolean cond = false;
-        boolean ej1 = false;
-        while(!cond){
-            System.out.print("\nJogador 1 escolha seu símbolo: \"X\" ou \"O\": ");
-            j1 = entrada.next();
-            if(("X".equals(j1)) || ("x".equals(j1)) || ("O".equals(j1)) || ("o".equals(j1))){
-                if(("X".equals(j1)) || ("x".equals(j1)))
-                    ej1 = true;
-                cond = true;
             }
         }
-        tentativas(ej1, a);
+        return true;
+    }
+
+    /**
+     * Verifica se há vencedor.
+     * Retorna:
+     * 0 -> ninguém venceu
+     * 1 -> X venceu
+     * 2 -> O venceu
+     */
+    public static int verificarVencedor(String[][] tabuleiro) {
+
+        // Verifica linhas e colunas
+        for (int i = 0; i < 3; i++) {
+
+            // Linhas
+            if ("X".equals(tabuleiro[i][0]) &&
+                "X".equals(tabuleiro[i][1]) &&
+                "X".equals(tabuleiro[i][2]))
+                return 1;
+
+            if ("O".equals(tabuleiro[i][0]) &&
+                "O".equals(tabuleiro[i][1]) &&
+                "O".equals(tabuleiro[i][2]))
+                return 2;
+
+            // Colunas
+            if ("X".equals(tabuleiro[0][i]) &&
+                "X".equals(tabuleiro[1][i]) &&
+                "X".equals(tabuleiro[2][i]))
+                return 1;
+
+            if ("O".equals(tabuleiro[0][i]) &&
+                "O".equals(tabuleiro[1][i]) &&
+                "O".equals(tabuleiro[2][i]))
+                return 2;
+        }
+
+        // Diagonal principal
+        if ("X".equals(tabuleiro[0][0]) &&
+            "X".equals(tabuleiro[1][1]) &&
+            "X".equals(tabuleiro[2][2]))
+            return 1;
+
+        if ("O".equals(tabuleiro[0][0]) &&
+            "O".equals(tabuleiro[1][1]) &&
+            "O".equals(tabuleiro[2][2]))
+            return 2;
+
+        // Diagonal secundária
+        if ("X".equals(tabuleiro[0][2]) &&
+            "X".equals(tabuleiro[1][1]) &&
+            "X".equals(tabuleiro[2][0]))
+            return 1;
+
+        if ("O".equals(tabuleiro[0][2]) &&
+            "O".equals(tabuleiro[1][1]) &&
+            "O".equals(tabuleiro[2][0]))
+            return 2;
+
+        return 0;
+    }
+
+    /* =========================================================
+       ================== CONTROLE DAS JOGADAS =================
+       ========================================================= */
+
+    /**
+     * Executa o loop principal do jogo
+     */
+    public static void jogar(boolean jogador1EhX, String[][] tabuleiro) {
+
+        String simboloJ1 = jogador1EhX ? "X" : "O";
+        String simboloJ2 = jogador1EhX ? "O" : "X";
+
+        int turno = 0;
+        boolean jogoAtivo = true;
+
+        while (jogoAtivo) {
+
+            String jogadorAtual = (turno % 2 == 0) ? simboloJ1 : simboloJ2;
+
+            int linha, coluna;
+
+            // Validação de jogada
+            while (true) {
+                System.out.println("Jogador " + jogadorAtual);
+                System.out.print("Linha (0-2): ");
+                linha = entrada.nextInt();
+                System.out.print("Coluna (0-2): ");
+                coluna = entrada.nextInt();
+
+                if (linha >= 0 && linha < 3 &&
+                    coluna >= 0 && coluna < 3 &&
+                    ".".equals(tabuleiro[linha][coluna])) {
+                    break;
+                }
+
+                System.out.println("Posição inválida! Tente novamente.\n");
+            }
+
+            tabuleiro[linha][coluna] = jogadorAtual;
+            imprimirTabuleiro(tabuleiro);
+
+            int resultado = verificarVencedor(tabuleiro);
+
+            if (resultado == 1) {
+                System.out.println("Jogador X venceu!");
+                jogoAtivo = false;
+            } else if (resultado == 2) {
+                System.out.println("Jogador O venceu!");
+                jogoAtivo = false;
+            } else if (tabuleiroCheio(tabuleiro)) {
+                System.out.println("Deu velha! (Empate)");
+                jogoAtivo = false;
+            }
+
+            turno++;
+        }
+    }
+
+    /* =========================================================
+       ============================ MAIN ========================
+       ========================================================= */
+
+    public static void main(String[] args) {
+
+        String[][] tabuleiro = new String[3][3];
+
+        inicializarTabuleiro(tabuleiro);
+        imprimirTabuleiro(tabuleiro);
+
+        boolean jogador1EhX = false;
+
+        // Escolha do símbolo
+        while (true) {
+            System.out.print("Jogador 1 escolha seu símbolo (X ou O): ");
+            String escolha = entrada.next().toUpperCase();
+
+            if (escolha.equals("X")) {
+                jogador1EhX = true;
+                break;
+            } else if (escolha.equals("O")) {
+                jogador1EhX = false;
+                break;
+            }
+
+            System.out.println("Entrada inválida!");
+        }
+
+        jogar(jogador1EhX, tabuleiro);
+
+        entrada.close();
+        System.out.println("Fim do jogo!");
     }
 }
