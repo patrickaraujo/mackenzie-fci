@@ -11,124 +11,186 @@ import java.io.IOException;
 import java.util.Scanner;
 
 /**
- *
  * @author Patrick
+ * Sistema que:
+ * - Lê uma matriz de preços de um arquivo
+ * - Recebe quantidade desejada de produtos
+ * - Calcula preço total por estabelecimento
+ * - Indica onde comprar cada produto pelo menor preço
  */
 public class Krika {
-    public static int[][] readMatrixFile (String file) throws IOException {
-        BufferedReader entrada = new BufferedReader(new FileReader(file));
-        String linha = entrada.readLine(); // lê a primeira linha
-        String vetorStr[] = linha.split("\t");
+
+    /* =========================================================
+       ================= LEITURA DE ARQUIVO ====================
+       ========================================================= */
+
+    /**
+     * Lê a matriz de preços do arquivo.
+     * Cada linha representa um produto.
+     * Cada coluna representa um estabelecimento.
+     */
+    public static int[][] lerMatrizArquivo(String nomeArquivo) throws IOException {
+
+        BufferedReader leitor = new BufferedReader(new FileReader(nomeArquivo));
+
+        // Primeiro: contar número de linhas
+        int linhas = 0;
+        String linha;
+        while ((linha = leitor.readLine()) != null) {
+            linhas++;
+        }
+
+        leitor.close();
+
+        // Reabrir arquivo para realmente ler dados
+        leitor = new BufferedReader(new FileReader(nomeArquivo));
+
+        int[][] matriz = new int[linhas][];
+
         int i = 0;
-        while (linha != null) {
-            linha = entrada.readLine();
+        while ((linha = leitor.readLine()) != null) {
+
+            String[] valores = linha.split("\t");
+            matriz[i] = new int[valores.length];
+
+            for (int j = 0; j < valores.length; j++) {
+                matriz[i][j] = Integer.parseInt(valores[j]);
+            }
+
             i++;
         }
-        int Mat[][] = new int[i][vetorStr.length];
-        Mat = passadados(file, Mat);
-        entrada.close();
-        return Mat;
+
+        leitor.close();
+        return matriz;
     }
-    
-    public static int[][] passadados(String file, int x[][]) throws IOException {
-        BufferedReader entrada = new BufferedReader(new FileReader(file));
-        String linha;
-        for(int k = 0; k < x.length; k++){
-            linha = entrada.readLine();
-            String vetorStr[] = linha.split("\t");
-            for(int j = 0; j < x[0].length; j++){
-                x[k][j] = Integer.parseInt(vetorStr[j]);
-            }
+
+    /* =========================================================
+       ================= IMPRESSÃO DA MATRIZ ===================
+       ========================================================= */
+
+    public static void imprimirMatriz(int[][] matriz) {
+
+        System.out.print("\t");
+        for (int j = 0; j < matriz[0].length; j++) {
+            System.out.print("Est" + (j + 1) + "\t");
         }
-        entrada.close();
-        return x;
-    }
-    
-    public static void printMatrix(int m[ ][ ]){
-        //andando na linha
-        for (int n = 0; n < m[0].length; n++)
-                System.out.print("\t"+(n+1));
         System.out.println();
-        for(int i = 0; i < m.length; i++){
-            //andando nas colunas
-            for(int j = 0; j < m[0].length; j++){
-                if(j == 0)
-                    System.out.print("P"+(i+1)+":\t");
-                System.out.print(m[i][j]+"\t");
+
+        for (int i = 0; i < matriz.length; i++) {
+            System.out.print("P" + (i + 1) + ":\t");
+            for (int j = 0; j < matriz[i].length; j++) {
+                System.out.print(matriz[i][j] + "\t");
             }
             System.out.println();
-        }  
-
-    }
-    
-    public static int[][] calcula(int x[][], int a1, int a2, int a3){
-        for(int i = 0; i < x.length; i++)
-            for(int j = 0; j < x[i].length; j++){
-                if(i == 0)
-                    x[i][j] = x[i][j]*a1;
-                else if(i == 1)
-                    x[i][j] = x[i][j]*a2;
-                else
-                    x[i][j] = x[i][j]*a3;
-            }
-        return x;
-    }
-    
-    public static int[] compara(int x[][]){
-        int z[] = new int[x.length];
-        for(int i = 0; i < x.length; i++){
-            z[i] = menorElemento(x[i]);
         }
-        int c[] = new int[z.length];
-        for(int j = 0; j < z.length; j++)
-            c[j] = procura(x[j], z[j]);
-        return c;
     }
-    
-    public static int menorElemento(int vet[]) {
-        int menor = vet[0];
-        for(int i=1; i < vet.length; i++){
-            if(vet[i] < menor){
-                menor=vet[i];
+
+    /* =========================================================
+       ================= CÁLCULO PREÇO x QUANTIDADE ============
+       ========================================================= */
+
+    public static int[][] calcularTotal(int[][] matriz, int[] quantidades) {
+
+        int[][] resultado = new int[matriz.length][matriz[0].length];
+
+        for (int i = 0; i < matriz.length; i++) {
+            for (int j = 0; j < matriz[i].length; j++) {
+                resultado[i][j] = matriz[i][j] * quantidades[i];
+            }
+        }
+
+        return resultado;
+    }
+
+    /* =========================================================
+       ================= LÓGICA DE MENOR PREÇO =================
+       ========================================================= */
+
+    public static int menorElemento(int[] vetor) {
+        int menor = vetor[0];
+        for (int i = 1; i < vetor.length; i++) {
+            if (vetor[i] < menor) {
+                menor = vetor[i];
             }
         }
         return menor;
     }
-    
-    public static int procura(int x[], int y) {
-        for (int i = 0; i < x.length; i++)
-            if (x[i] == (y))
+
+    public static int indiceMenor(int[] vetor) {
+        int menor = menorElemento(vetor);
+
+        for (int i = 0; i < vetor.length; i++) {
+            if (vetor[i] == menor) {
                 return i;
-        return -1; // Não achou, retorna -1
-    }
-    
-    public static void print(int x[][], int y[]){
-        int s = 0;
-        for(int i = 0; i < y.length; i++){
-            System.out.println("Estabelecimento mais barato para comprar o produto P"+(i+(1))+": "+(y[i]+(1)));
-            s = s + x[i][y[i]];
+            }
         }
-        System.out.println("Custo da compra: "+s);
+
+        return -1;
     }
-    
-    public static void main(String[] args)throws IOException{
-        // TODO code application logic here
-        int mat[][];
-        mat = readMatrixFile("precos.txt");
-        System.out.println("Obs.: Linha X = Estabelecimentos; Linha Y = Produtos");
-        System.out.println("Tabela de valores");
-        printMatrix(mat);
-        System.out.println("Entre com a quantidade do produto:\n\nP1");
-        Scanner all = new Scanner(System.in);
-        int p1 = all.nextInt();
-        System.out.println("P2");
-        int p2 = all.nextInt();
-        System.out.println("P3");
-        int p3 = all.nextInt();
-        int x[][] = calcula(mat, p1, p2, p3);
-        int b[] = compara(x);
-        System.out.println("\nRelação: (preço X quantidade)");
-        printMatrix(x);
-        print(x, b);
+
+    /**
+     * Retorna o melhor estabelecimento para cada produto
+     */
+    public static int[] compararEstabelecimentos(int[][] matriz) {
+
+        int[] melhores = new int[matriz.length];
+
+        for (int i = 0; i < matriz.length; i++) {
+            melhores[i] = indiceMenor(matriz[i]);
+        }
+
+        return melhores;
+    }
+
+    /* =========================================================
+       ================= RESULTADO FINAL =======================
+       ========================================================= */
+
+    public static void imprimirResultado(int[][] matriz, int[] melhores) {
+
+        int somaTotal = 0;
+
+        for (int i = 0; i < melhores.length; i++) {
+
+            System.out.println("Produto P" + (i + 1) +
+                    " comprar no Estabelecimento " + (melhores[i] + 1));
+
+            somaTotal += matriz[i][melhores[i]];
+        }
+
+        System.out.println("Custo total da compra: " + somaTotal);
+    }
+
+    /* =========================================================
+       ============================= MAIN ======================
+       ========================================================= */
+
+    public static void main(String[] args) throws IOException {
+
+        Scanner entrada = new Scanner(System.in);
+
+        int[][] precos = lerMatrizArquivo("precos.txt");
+
+        System.out.println("Tabela de Preços:");
+        imprimirMatriz(precos);
+
+        int[] quantidades = new int[precos.length];
+
+        for (int i = 0; i < quantidades.length; i++) {
+            System.out.print("Quantidade do Produto P" + (i + 1) + ": ");
+            quantidades[i] = entrada.nextInt();
+        }
+
+        int[][] total = calcularTotal(precos, quantidades);
+
+        System.out.println("\nTabela (Preço x Quantidade):");
+        imprimirMatriz(total);
+
+        int[] melhores = compararEstabelecimentos(total);
+
+        System.out.println("\nMelhores opções:");
+        imprimirResultado(total, melhores);
+
+        entrada.close();
     }
 }
